@@ -10,14 +10,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String temp;
+        String input;
         int choice;
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a string");
-        String str = sc.nextLine();
-        MyString s = new MyString(str);
+        input = sc.nextLine();
+        MyString s = new MyString(input);
         while(true){
-            temp="";
+            System.out.println("Current String:"+s);
+            input="";
             System.out.println("Select Operation");
             System.out.println("1.Append\n2.CountWords\n3.Replace\n4.isPalindrome\n5.Splice\n6.Split\n7.MaxRepeatingCharacter\n8.Sort\n9.Shift\n10.Reverse\n11.Exit");
             choice = sc.nextInt();
@@ -25,13 +26,13 @@ public class Main {
             switch (choice) {
                 case 1:
                     System.out.println("Enter string to append");
-                    temp = sc.nextLine();
-                    s.append(temp);
+                    input = sc.nextLine();
+                    s.append(input);
                     System.out.println("Appended:"+s);
                     break;
                 case 2:
-                    int wordC = s.countWords();
-                    System.out.println("Words Count:"+wordC);
+                    int countOfWords = s.countWords();
+                    System.out.println("Words Count:"+countOfWords);
                     break;
                 case 3:
                     System.out.println("Enter source and pattern for replacement");
@@ -48,34 +49,35 @@ public class Main {
                     System.out.println("Enter starting index and length");
                     int stIdx=sc.nextInt();
                     int len=sc.nextInt();
-                    String spliced  = s.splice(stIdx,len);
-                    System.out.println("Spliced:"+spliced);
+                    String splicedString  = s.splice(stIdx,len);
+                    System.out.println("Spliced:"+splicedString);
                     break;
                 case 6:
-                    String words[] = s.split();
+                    String[] arrayOfWords = s.split();
                     System.out.print("Array of words:");
-                    for(String wd:words){
-                        System.out.print("{"+wd+"}");
+                    System.out.print("[");
+                    for(String wd:arrayOfWords){
+                        System.out.print(wd+",");
                     }
+                    System.out.print("]");
                     System.out.println();
                     break;
                 case 7:
-                    char maxRepeatingChar=s.maxRepeat();
-                    System.out.println("Maximum Repeating Character:"+maxRepeatingChar);
+                    s.maxRepeat();
                     break;
                 case 8:
-                    String sorted = s.sort();
-                    System.out.println("Sorted:"+sorted);
+                    String sortedString = s.sort();
+                    System.out.println("Sorted:"+sortedString);
                     break;
                 case 9:
                     System.out.println("Enter moves");
                     int moves=sc.nextInt();
-                    String shifted = s.shift(moves);
-                    System.out.println("Shifted:"+shifted);
+                    String shiftedString = s.shift(moves);
+                    System.out.println("Shifted:"+shiftedString);
                     break;
                 case 10:
-                    String reversed = s.reverse();
-                    System.out.println("Reversed:"+reversed);
+                    String reversedString = s.reverse();
+                    System.out.println("Reversed:"+reversedString);
                     break;
                 case 11:System.exit(0);
                     break;
@@ -85,20 +87,6 @@ public class Main {
             }
 
         }
-//        System.out.println(s);
-//        s.append("CLASS");
-//        System.out.println(s);
-//        s.countWords();
-//        System.out.println(s.countWords());
-//        String ans =s.reverse();
-//        System.out.println(ans);
-//        System.out.println(s.isPalindrome());
-//        System.out.println(s.splice(2,2));
-//        String arr[]=s.split();
-//        System.out.println(Arrays.toString(arr));
-//        System.out.println("Max Repeating Char:"+s.maxRepeat());
-//        System.out.println("Sorted:"+s.sort());
-//        System.out.println("Shifted:"+s.shift(3));
-//        System.out.println("Replaced:"+s.replace("a","o"));
+
     }
 }

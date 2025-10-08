@@ -6,29 +6,29 @@
 package org.example;
 
 public class MyString {
-    private String str="MyString";
-    MyString(String str){
-        this.str=str;
+    private String value="MyString";
+    MyString(String value){
+        this.value=value;
     }
     @Override public String toString() {
-        return this.str;
+        return this.value;
     }
-    public void append(String str){
-         this.str += str;
+    public void append(String value){
+         this.value += " "+value;//Appends new string to current string
     }
     public int countWords(){
-        int counts=0;
-        for(int i=0;i<this.str.length();i++){
-            if(this.str.charAt(i)==' '){
-                counts++;
+        int counter=0;
+        for(int i=0;i<this.value.length();i++){
+            if(this.value.charAt(i)==' '){ //Counts space separated words
+                counter++;
             }
         }
-        return  ++counts;
+        return  ++counter;
     }
-    public String replace(String a, String b) {
-        char[] main = this.str.toCharArray();
-        char[] oldStr = a.toCharArray();
-        char[] newStr = b.toCharArray();
+    public String replace(String source, String pattern) {
+        char[] main = this.value.toCharArray();
+        char[] oldStr = source.toCharArray();
+        char[] newStr = pattern.toCharArray();
 
         String result = "";
         int i = 0;
@@ -36,7 +36,7 @@ public class MyString {
         while (i < main.length) {
             boolean match = true;
 
-            // Check if substring starting at i matches 'a'
+            // Check if substring starting at i matches 'source'
             for (int j = 0; j < oldStr.length && i + j < main.length; j++) {
                 if (main[i + j] != oldStr[j]) {
                     match = false;
@@ -46,7 +46,7 @@ public class MyString {
 
             // If a match is found
             if (match) {
-                // Append b
+                // Append pattern
                 for (int k = 0; k < newStr.length; k++) {
                     result += newStr[k];
                 }
@@ -61,38 +61,36 @@ public class MyString {
         return result;
     }
     public String reverse(){
-        int n=this.str.length()-1;
+        int n = this.value.length()-1;
         String ans="";
        for(int i=n;i>=0;i--){
-           ans+=this.str.charAt(i);
+           ans+=this.value.charAt(i);
        }
        return ans;
     }
     public boolean isPalindrome(){
-        for(int i=0,j=str.length()-1;i<j;i++,j--){
-            if(this.str.charAt(i)!=this.str.charAt(j)){
+        for(int i=0,j=value.length()-1;i<j;i++,j--){
+            if(this.value.charAt(i)!=this.value.charAt(j)){
                 return false;
             }
         }
         return true;
     }
     public String splice(int stIdx,int len){
-        String str = this.str;
-        char CharArray[]=str.toCharArray();
-        char ans[]=new char[str.length()-len];
-        for(int i=0;i<stIdx;i++){
-            ans[i]=CharArray[i];
-        }
+        String value = this.value;
+        char[] CharArray =value.toCharArray();
+        char[] answerArray =new char[value.length()-len];
+        if (stIdx >= 0) System.arraycopy(CharArray, 0, answerArray, 0, stIdx);
         int ansIdx=stIdx;
-        for(int i=stIdx+len;i<str.length();i++){
-            ans[ansIdx]=CharArray[i];
+        for(int i=stIdx+len;i<value.length();i++){
+            answerArray[ansIdx]=CharArray[i];
             ansIdx++;
         }
-        return new String(ans);
+        return new String(answerArray);
     }
     public String[] split() {
-        String str = this.str;
-        char[] chars = str.toCharArray();
+        String value = this.value;
+        char[] chars = value.toCharArray();
         String[] temp = new String[chars.length]; // temporary storage
         int index = 0;
         String word = "";
@@ -115,60 +113,58 @@ public class MyString {
 
         // Now create exact-sized result array (no nulls)
         String[] result = new String[index];
-        for (int i = 0; i < index; i++) {
-            result[i] = temp[i];
-        }
+        System.arraycopy(temp, 0, result, 0, index);
 
         return result;
     }
-    public char maxRepeat(){
-        String str = this.str;
-        int freq[]=new int[256];
-        char CharArray[]=str.toCharArray();
+    public void maxRepeat(){
+        String value = this.value;
+        int[] freqArray =new int[256];
+        char[] CharArray =value.toCharArray();
         for(char ch : CharArray){
-            freq[ch]++;
+            freqArray[ch]++;
         }
         int maxFrequency = 0;
         char maxFreqChar = '\0';
-        for (int i = 0; i < freq.length; i++) {
-            if (freq[i] > maxFrequency) {
-                maxFrequency = freq[i];
+        for (int i = 0; i < freqArray.length; i++) {
+            if (freqArray[i] > maxFrequency && i!=32) {
+                maxFrequency = freqArray[i];
                 maxFreqChar = (char) i;
             }
         }
-        return maxFreqChar;
+        System.out.println("Character:"+maxFreqChar+" with Frequency:"+maxFrequency);
     }
     public String sort(){
-        String str =  this.str;
-        char org[]=str.toCharArray();
-        int n=org.length;
+        String value =  this.value;
+        char[] orgArray =value.toCharArray();
+        int n=orgArray.length;
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (org[j] > org[j + 1]) {
-                    char temp = org[j];
-                    org[j] = org[j + 1];
-                    org[j + 1] = temp;
+                if (orgArray[j] > orgArray[j + 1]) {
+                    char temp = orgArray[j];
+                    orgArray[j] = orgArray[j + 1];
+                    orgArray[j + 1] = temp;
                 }
             }
         }
-        return new String(org);
+        return new String(orgArray);
     }
     public String shift(int moves){
-        String str = this.str;
-        char org[]=str.toCharArray();
-        int n = str.length();
+        String value = this.value;
+        char[] orgArray =value.toCharArray();
+        int n = value.length();
         int j=0;
-        char ans[]=new char[n];
+        char[] ansArray =new char[n];
         for(int i=moves;i<n;i++){
 
-            ans[j]=org[i];
+            ansArray[j]=orgArray[i];
             j++;
         }
         for(int i=0;i<moves;i++){
-            ans[j]=org[i];
+            ansArray[j]=orgArray[i];
             j++;
         }
 
-        return new String(ans);
+        return new String(ansArray);
     }
 }
